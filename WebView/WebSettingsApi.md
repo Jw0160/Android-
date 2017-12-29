@@ -1,10 +1,12 @@
 # WebView -> setting Api
 
 ---
+[本文转载，原文地址](http://reezy.me/p/20170515/android-webview/)
 
 ## [WebSettings](https://developer.android.com/reference/android/webkit/WebSettings.html)
     
     WebSettings settings = web.getSettings();
+
     // 存储(storage)
     // 启用HTML5 DOM storage API，默认值 false
     settings.setDomStorageEnabled(true); 
@@ -15,8 +17,10 @@
     // 此API已废弃，参考：https://developer.mozilla.org/zh-CN/docs/Web/HTML/Using_the_application_cache
     settings.setAppCacheEnabled(true); 
     settings.setAppCachePath(context.getCacheDir().getAbsolutePath());
+
     // 定位(location)
     settings.setGeolocationEnabled(true);
+
     // 是否保存表单数据
     settings.setSaveFormData(true);
     // 是否当webview调用requestFocus时为页面的某个元素设置焦点，默认值 true
@@ -27,14 +31,20 @@
     // 是否使用overview mode加载页面，默认值 false
     // 当页面宽度大于WebView宽度时，缩小使页面宽度等于WebView宽度
     settings.setLoadWithOverviewMode(true);
+
     // 布局算法
     settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+
     // 是否支持Javascript，默认值false
+	// 若加载的 html 里有JS 在执行动画等操作，会造成资源浪费（CPU、电量）
+	// 在 onStop 和 onResume 里分别把 setJavaScriptEnabled() 给设置成 false 和 true 即可
     settings.setJavaScriptEnabled(true); 
+
     // 是否支持多窗口，默认值false
     settings.setSupportMultipleWindows(false);
     // 是否可用Javascript(window.open)打开窗口，默认值 false
     settings.setJavaScriptCanOpenWindowsAutomatically(false);
+
     // 资源访问
     settings.setAllowContentAccess(true); // 是否可访问Content Provider的资源，默认值 true
     settings.setAllowFileAccess(true);// 是否可访问本地文件，默认值 true
@@ -42,14 +52,17 @@
     settings.setAllowFileAccessFromFileURLs(false);  
     // 是否允许通过file url加载的Javascript读取全部资源(包括文件,http,https)，默认值 false
     settings.setAllowUniversalAccessFromFileURLs(false);
+
     // 资源加载
     settings.setLoadsImagesAutomatically(true); // 是否自动加载图片
     settings.setBlockNetworkImage(false);   // 禁止加载网络图片
     settings.setBlockNetworkLoads(false);   // 禁止加载所有网络资源
+
     // 缩放(zoom)
     settings.setSupportZoom(true);  // 是否支持缩放
     settings.setBuiltInZoomControls(false); // 是否使用内置缩放机制
     settings.setDisplayZoomControls(true);  // 是否显示内置缩放控件
+
     // 默认文本编码，默认值 "UTF-8"
     settings.setDefaultTextEncodingName("UTF-8");
     settings.setDefaultFontSize(16);// 默认文字尺寸，默认值16，取值范围1-72
@@ -57,6 +70,7 @@
     settings.setMinimumFontSize(8); // 最小文字尺寸，默认值 8
     settings.setMinimumLogicalFontSize(8);  // 最小文字逻辑尺寸，默认值 8
     settings.setTextZoom(100);  // 文字缩放百分比，默认值 100
+
     // 字体
     settings.setStandardFontFamily("sans-serif");   // 标准字体，默认值 "sans-serif"
     settings.setSerifFontFamily("serif");   // 衬线字体，默认值 "serif"
@@ -64,6 +78,7 @@
     settings.setFixedFontFamily("monospace");   // 等宽字体，默认值 "monospace"
     settings.setCursiveFontFamily("cursive");   // 手写体(草书)，默认值 "cursive"
     settings.setFantasyFontFamily("fantasy");   // 幻想体，默认值 "fantasy"
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
     // 用户是否需要通过手势播放媒体(不会自动播放)，默认值 true
     settings.setMediaPlaybackRequiresUserGesture(true);
@@ -76,6 +91,13 @@
     // 是否在离开屏幕时光栅化(会增加内存消耗)，默认值 false
     settings.setOffscreenPreRaster(false);
     }
+
+
+	//缓存模式如下：
+        //LOAD_CACHE_ONLY: 不使用网络，只读取本地缓存数据
+        //LOAD_DEFAULT: （默认）根据cache-control决定是否从网络上取数据。
+        //LOAD_NO_CACHE: 不使用缓存，只从网络获取数据.
+        //LOAD_CACHE_ELSE_NETWORK，只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据。
     if (isNetworkConnected(context)) {
     // 根据cache-control决定是否从网络上取数据
     settings.setCacheMode(WebSettings.LOAD_DEFAULT);
@@ -83,6 +105,7 @@
     // 没网，离线加载，优先加载缓存(即使已经过期)
     settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
     }
+
     // deprecated
     settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
     settings.setDatabasePath(context.getDir("database", Context.MODE_PRIVATE).getPath());

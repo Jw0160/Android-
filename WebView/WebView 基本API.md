@@ -2,7 +2,7 @@
 
 ---
 
-[参考](http://reezy.me/p/20170515/android-webview/)
+[本文转载，原文地址](http://reezy.me/p/20170515/android-webview/)
 ## WebView [Api](https://developer.android.com/reference/android/webkit/WebView.html)
 
 > 基本

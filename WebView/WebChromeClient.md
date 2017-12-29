@@ -1,0 +1,90 @@
+# WebChromeClient
+
+----
+
+[本文转载，原文地址](http://reezy.me/p/20170515/android-webview/)
+
+    
+    
+    // 获得所有访问历史项目的列表，用于链接着色。
+    public void getVisitedHistory(ValueCallback<String[]> callback) {
+    }
+    // <video /> 控件在未播放时，会展示为一张海报图，HTML中可通过它的'poster'属性来指定。
+    // 如果未指定'poster'属性，则通过此方法提供一个默认的海报图。
+    public Bitmap getDefaultVideoPoster() {
+    return null;
+    }
+    // 当全屏的视频正在缓冲时，此方法返回一个占位视图(比如旋转的菊花)。
+    public View getVideoLoadingProgressView() {
+    return null;
+    }
+    // 接收当前页面的加载进度
+    public void onProgressChanged(WebView view, int newProgress) {
+    }
+    // 接收文档标题
+    public void onReceivedTitle(WebView view, String title) {
+    }
+    // 接收图标(favicon)
+    public void onReceivedIcon(WebView view, Bitmap icon) {
+    }
+    // Android中处理Touch Icon的方案
+    // http://droidyue.com/blog/2015/01/18/deal-with-touch-icon-in-android/index.html
+    public void onReceivedTouchIconUrl(WebView view, String url, boolean precomposed) {
+    }
+    // 通知应用当前页进入了全屏模式，此时应用必须显示一个包含网页内容的自定义View
+    public void onShowCustomView(View view, CustomViewCallback callback) {
+    }
+    // 通知应用当前页退出了全屏模式，此时应用必须隐藏之前显示的自定义View
+    public void onHideCustomView() {
+    }
+    // 显示一个alert对话框
+    public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+    return false;
+    }
+    // 显示一个confirm对话框
+    public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
+    return false;
+    }
+    // 显示一个prompt对话框
+    public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+    return false;
+    }
+    // 显示一个对话框让用户选择是否离开当前页面
+    public boolean onJsBeforeUnload(WebView view, String url, String message, JsResult result) {
+    return false;
+    }
+    // 指定源的网页内容在没有设置权限状态下尝试使用地理位置API。
+    // 从API24开始，此方法只为安全的源(https)调用，非安全的源会被自动拒绝
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+    }
+    // 当前一个调用 onGeolocationPermissionsShowPrompt() 取消时，隐藏相关的UI。
+    public void onGeolocationPermissionsHidePrompt() {
+    }
+    // 通知应用打开新窗口
+    public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
+    return false;
+    }
+    // 通知应用关闭窗口
+    public void onCloseWindow(WebView window) {
+    }
+    // 请求获取取焦点
+    public void onRequestFocus(WebView view) {
+    }
+    // 通知应用网页内容申请访问指定资源的权限(该权限未被授权或拒绝)
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void onPermissionRequest(PermissionRequest request) {
+    request.deny();
+    }
+    // 通知应用权限的申请被取消，隐藏相关的UI。
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void onPermissionRequestCanceled(PermissionRequest request) {
+    }
+    // 为'<input type="file" />'显示文件选择器，返回false使用默认处理
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+    return false;
+    }
+    // 接收JavaScript控制台消息
+    public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+    return false;
+    }
