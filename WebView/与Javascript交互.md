@@ -170,7 +170,11 @@ WebView中getSettings类的方法对 WebView 安全性的影响：
 
 
 
+**解决方案：**
 
+```
+设置setAllowUniversalAccessFromFileURLs(false);
+```
 
 
 
