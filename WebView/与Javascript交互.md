@@ -177,7 +177,27 @@ WebView中getSettings类的方法对 WebView 安全性的影响：
 ```
 
 
+## 如何避免WebView内存泄露？ ##
 
+不在xml中定义 Webview ，而是在需要的时候在Activity中创建，并且Context使用 getApplicationgContext()
 
+    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    mWebView = new WebView(getApplicationContext());
+    mWebView.setLayoutParams(params);
+    mLayout.addView(mWebView);
 
-
+在 Activity 销毁（ WebView ）的时候，先让 WebView 加载null内容，然后移除 WebView，再销毁 WebView，最后置空。
+    
+    @Override
+    protected void onDestroy() {
+    if (mWebView != null) {
+    mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+    mWebView.clearHistory();
+    
+    ((ViewGroup) mWebView.getParent()).removeView(mWebView);
+    mWebView.destroy();
+    mWebView = null;
+    }
+    super.onDestroy();
+    }
+    
